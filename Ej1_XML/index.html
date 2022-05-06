@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <script>
+    function cargarAmigos() {
+    var objeto_peticion = new XMLHttpRequest();
+    objeto_peticion.onreadystatechange=function()
+        {
+            if (objeto_peticion.status==200 && objeto_peticion.readyState==4)
+            {
+                //TODO
+                mostrarNombres(objeto_peticion.responseXML);
+
+            }
+        }
+    objeto_peticion.open("GET", "amigos.xml", true);
+    objeto_peticion.send();
+}
+    function mostrarNombres(xml){
+        var arr_amigos=xml.getElementsByTagName("amigo");
+        var arr_amijos=xml.getElementsByTagName("nombre");
+        var arr_tlfs=xml.getElementsByTagName("tlf");
+       
+        for(i=0; i<arr_amigos.length;i++ ){
+        var amigos=arr_amijos[i].childNodes[0].nodeValue;
+        var tlfs=arr_tlfs[i].childNodes[0].nodeValue;
+        var objeto_nom=document.createElement("p");
+        var objeto_tlf=document.createElement("p");
+        objeto_nom.innerHTML=amigos;
+        objeto_tlf.innerHTML=tlfs; 
+        document.getElementById("amigoos").appendChild(objeto_nom);
+        document.getElementById("amigoos").appendChild(objeto_tlf);
+            }
+    }
+
+
+
+    </script>
+</head>
+<body  onload="cargarAmigos()">
+
+<div id="amigoos">
+  
+</div>
+
+</body>
+</html>
